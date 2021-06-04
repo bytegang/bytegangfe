@@ -138,7 +138,9 @@ export default {
       let clientId = '529233922d0f07904d7e';
       let state = 'mojotv.cn';
       let scope = 'user';
+      //https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps#redirect-urls
       return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${window.location.origin}&scope=${scope}&state=${state}`;
+
     },
     isMfaReady() {
       if (!this.user) {
@@ -244,42 +246,22 @@ export default {
     },
 
     _jmsResetPassword() {
-      this.$http.get('/api/jms/reset-password').then(res => {
-        if (res) {
-          this.$message.success("kssop.mojotv.cn用户密码重置成功,重置邮件已经发送,请到mojotv.cn邮箱(mail.kmail.com)查看重置邮件")
-        }
-      })
+
     },
     _jmsResetPublicKey() {
-      this.$http.get('/api/jms/reset-pk').then(res => {
-        if (res) {
-          this.$message.success("kssop.mojotv.cn SSH Public Key重置成功,你可以在kssop.mojotv.cn中充值你的SSH-Public-Key")
-        }
-      })
+
     },
     _jmsResetMfa() {
-      this.$http.get('/api/jms/reset-mfa').then(res => {
-        if (res) {
-          this.$message.success("kssop.mojotv.cn用户2FA重置成功,再次输入用户密码登录kssop.mojotv.cn,您将可以重新设置你的2FA")
-        }
-      })
+
     },
     //cat
 
     _sreMfaInit() {
-      this.$http.get("/api/user/mfa/init").then(res => {
-        if (res) {
-          this.$message.success(`SRE-2FA密钥初始化Email已经发送到您的${this.user.email}邮箱,请查收`)
-        }
-      })
+
     },
 
     _sreMfaReset() {
-      this.$http.get("/api/user/mfa/reset").then(res => {
-        if (res) {
-          this.$message.success(`SRE-2FA密钥重置Email已经发送到您的${this.user.email}邮箱,请查收`)
-        }
-      })
+
     },
     doCommand(command) {
 

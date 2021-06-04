@@ -72,7 +72,7 @@
             <el-button size="mini" title="删除" type="danger" icon="el-icon-delete"
                        @click="doDelete(scope.row)"></el-button>
             <el-button size="mini" type="warning" @click="doXterm(scope.row)">Agent</el-button>
-            <el-button size="mini" type="info" @click="doXterm(scope.row)">SFTP</el-button>
+            <el-button size="mini" type="info" @click="doSftp(scope.row)">SFTP</el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -129,9 +129,16 @@ export default {
       this.vAsset = true
       this.objAsset = row
     },
-    doXterm: function (row) {
-      //todo:::::
+    doXterm (row) {
       this.$http.get("/api/asset-web-ssh", {params: {id: row.id}}).then(webSshURL => {
+        if (webSshURL) {
+          window.open(webSshURL, '_blank');
+        }
+      })
+    },
+    doSftp (row) {
+      //todo:::::
+      this.$http.get("/api/asset-web-sftp", {params: {id: row.id}}).then(webSshURL => {
         if (webSshURL) {
           window.open(webSshURL, '_blank');
         }

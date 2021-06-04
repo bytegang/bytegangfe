@@ -4,15 +4,15 @@ module.exports = {
 
     devServer: {
         disableHostCheck: true,
-        port: 2017,
-        https: true,
+        port: 8080,
+        https: false,
 
         //proxy:'http://localhost:2222'
         proxy: {
             '/api': {
                 ws: false,
                 changeOrigin: true,
-                target: 'http://127.0.0.1:8080'
+                target: 'http://127.0.0.1:8050'
             },
 
             '/ws/term': {
@@ -21,5 +21,9 @@ module.exports = {
                 changeOrigin: true
             },
         }
-    }
+    },
+
+    transpileDependencies: [
+      'vuetify'
+    ]
 };

@@ -1,12 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
-//import axios from 'axios';
 
 Vue.use(Router);
 
 const vueRouter = new Router({
     $breadCrumbs: ['main'],
-    mode: "hash",
+    mode: "history",
     routes: [
         {
             path: '/mfa/setup/:userId/:token',
@@ -47,15 +46,8 @@ const vueRouter = new Router({
             //redirect: {name: 'sshList'},
             children: [
 
-                {
-                    path: "guacamole",
-                    name: "guacamole",
-                    meta: {
-                        breads: [{name: 'main', title: '首页'}, {name: 'requisition', title: 'guacamole'}],
-                        title: "guacamole"
-                    },
-                    component: () => import("@/components/GuacClient"),
-                },
+
+
 
 
                 {

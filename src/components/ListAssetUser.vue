@@ -91,6 +91,8 @@
             <el-button size="mini" title="删除" type="danger" icon="el-icon-delete"
                        @click="doDelete(scope.row)"></el-button>
             <el-button size="mini" type="info" @click="doSftp(scope.row)">SFTP</el-button>
+            <el-button size="mini" type="info" @click="doVnc(scope.row)">VNC</el-button>
+            <el-button size="mini" type="info" @click="doRdp(scope.row)">RDP</el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -161,6 +163,12 @@ export default {
     },
     doSftp(row) {
 
+    },
+    doVnc(row) {
+      //todo:: 实现 vnc
+    },
+    doRdp(row){
+      //todo:: 实现 rdp
     },
     doXterm: function (row) {
       //todo:::::
