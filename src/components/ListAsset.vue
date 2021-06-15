@@ -60,19 +60,16 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="Action">
+      <el-table-column fixed="right" label="Action" width="180">
         <template slot-scope="scope">
           <el-button-group>
 
-            <el-button size="mini" title="Web Terminal SSH" type="success" icon="el-icon-s-promotion"
-                       @click="doXterm(scope.row)"></el-button>
+            <el-button size="mini" title="Web Terminal SSH" type="success" icon="el-icon-s-promotion" @click="doXterm(scope.row)"></el-button>
             <el-button size="mini" title="查看" type="primary" icon="el-icon-view" @click="doView(scope.row)"></el-button>
-            <el-button size="mini" title="编辑" type="warning" icon="el-icon-edit-outline"
-                       @click="doUpdate(scope.row)"></el-button>
-            <el-button size="mini" title="删除" type="danger" icon="el-icon-delete"
-                       @click="doDelete(scope.row)"></el-button>
-            <el-button size="mini" type="warning" @click="doXterm(scope.row)">Agent</el-button>
-            <el-button size="mini" type="info" @click="doSftp(scope.row)">SFTP</el-button>
+            <el-button size="mini" title="编辑" type="warning" icon="el-icon-edit-outline" @click="doUpdate(scope.row)"></el-button>
+            <el-button size="mini" title="删除" type="danger" icon="el-icon-delete" @click="doDelete(scope.row)"></el-button>
+            <el-button size="mini" title="安装Agent" type="warning" @click="doAgent(scope.row)" icon="el-icon-set-up"></el-button>
+            <el-button size="mini" title="SFTP" type="info" @click="doSftp(scope.row)" icon="el-icon-sort"></el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -128,6 +125,9 @@ export default {
     doUpdate(row) {
       this.vAsset = true
       this.objAsset = row
+    },
+    doAgent(row){
+      //todo:: 安装 agent 查看agent 状态
     },
     doXterm (row) {
       this.$http.get("/api/asset-web-ssh", {params: {id: row.id}}).then(webSshURL => {
