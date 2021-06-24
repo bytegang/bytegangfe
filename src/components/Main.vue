@@ -69,12 +69,10 @@
             </span>
 
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-if="!isMfaReady" command="sre-mfa-init"
+              <el-dropdown-item command="sre-mfa-init"
                                 icon="el-icon-key">激活SRE-MFA
               </el-dropdown-item>
-              <el-dropdown-item v-if="isMfaReady" command="sre-mfa-reset"
-                                icon="el-icon-key">重置SRE-MFA
-              </el-dropdown-item>
+
 
               <el-dropdown-item v-if="todoCount > 0" command="todo" icon="el-icon-s-promotion">
                 {{ `${todoCount}条待审批` }}
@@ -142,15 +140,7 @@ export default {
       return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${window.location.origin}&scope=${scope}&state=${state}`;
 
     },
-    isMfaReady() {
-      if (!this.user) {
-        return false
-      }
-      if (!this.user.mfa_status) {
-        return false
-      }
-      return this.user.mfa_status === 'ok'
-    },
+
     version() {
       return this.$store.getters.getVersion
     },
@@ -183,6 +173,10 @@ export default {
     window.document.title = this.$route.meta.title || "FelixZhou"
   },
   mounted() {
+    if (this.$route.path === '/') {
+      this.$router.push({name: 'asset'})
+      return
+    }
     this.fetchGithubUser()
     this.$store.dispatch("fetchMeta")
 

@@ -13,7 +13,6 @@
         <el-radio-group v-model="form.for">
           <el-radio label="admin"></el-radio>
           <el-radio label="share"></el-radio>
-          <el-radio label="user"></el-radio>
         </el-radio-group>
       </el-form-item>
 

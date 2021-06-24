@@ -85,22 +85,21 @@
     </el-pagination>
 
     <df-asset :visible="vAsset" :obj="objAsset" @afterClose="vAsset=false;fetchPage()"></df-asset>
-    <df-asset-scan :visible="vScan" :obj="{}" @afterClose="vScan=false;fetchPage()"></df-asset-scan>
   </div>
 </template>
 
 <script>
 import GoBackBtn from "@/components/misc/GoBackBtn";
 import DfAsset from "@/components/misc/DfAsset";
-import DfAssetScan from "@/components/misc/DfAssetScan";
 
 export default {
-  name: 'ListSshSessionLog',
-  components: {DfAssetScan, DfAsset, GoBackBtn},
+  name: 'ListTerminalLog',
+  components: {  DfAsset, GoBackBtn},
   data() {
     return {
+      row: null,
       vAsset: false,
-      vScan: false,
+      vTerm: false,
       objAsset: {},
       q: {order: 'updated_at:desc', page: 1, size: 15, name: '', email: ''},
       tableData: [],
@@ -113,17 +112,10 @@ export default {
 
   methods: {
 
-    doXterm: function (row) {
-      this.$http.get("/api/asset-web-ssh", {params: {id: row.id}}).then(webSshURL => {
-        if (webSshURL) {
-          window.open(webSshURL, '_blank');
-        }
-      })
-    },
+
     doView(row) {
-      this.$http(`/api/ssh-session-log/${row.id}`).then(data => {
-        console.log("todo:: show logs", data)
-      })
+      let routeData = this.$router.resolve({name: 'play', params: {id: row.id}});
+      window.open(routeData.href, '_blank');
     },
     pageChange(val) {
       this.q.page = val;
@@ -136,7 +128,7 @@ export default {
     },
     fetchPage() {
       this.$http
-          .get("/api/ssh-session-log", {params: this.q})
+          .get("/api/terminal-log", {params: this.q})
           .then(resp => {
             if (resp) {
               let {page, size, list, total} = resp
@@ -149,7 +141,7 @@ export default {
     },
 
     doDelete(row) {
-      this.$http.delete(`/api/ssh-session-log/${row.id}`).then(res => {
+      this.$http.delete(`/api/terminal-log/${row.id}`).then(res => {
         if (res) {
           this.fetchPage();
         }

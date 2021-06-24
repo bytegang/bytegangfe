@@ -14,7 +14,7 @@
         <el-input v-model="form.admin_addr"></el-input>
       </el-form-item>
       <el-form-item label="管理端口" required>
-        <el-input v-model="form.admin_port"></el-input>
+        <el-input v-model.number="form.admin_port"></el-input>
       </el-form-item>
       <el-form-item label="Host Name">
         <el-input v-model="form.hostname"></el-input>
@@ -28,7 +28,7 @@
       <el-form-item label="Os">
 
         <el-radio-group v-model="form.os">
-          <el-radio-button v-for="item in $store.state.osList" :key="item" :label="item"></el-radio-button>
+          <el-radio-button v-for="item in osList" :key="item.v" :label="item.label"></el-radio-button>
         </el-radio-group>
       </el-form-item>
 
@@ -45,9 +45,7 @@
       </el-form-item>
 
 
-      <el-form-item label="Telnet Status">
-        <el-input v-model="form.telnet_status"></el-input>
-      </el-form-item>
+
 
       <el-form-item>
         <el-button type="success" @click="doFormSubmit" @keyup.enter.native="doFormSubmit">提交</el-button>
@@ -78,6 +76,12 @@ export default {
         protocol: 'ssh',
       },
     };
+  },
+  computed:{
+    osList(){
+      let meta = this.$store.getters.getMeta
+      return meta ? meta.asset_os_list : []
+    },
   },
   methods: {
     fetchAdminAccount() {

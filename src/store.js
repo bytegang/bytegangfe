@@ -8,7 +8,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        osList: ['Linux (Centos)', 'Linux(Ubuntu)', 'Linux(Kali)', 'Windows(2008)', 'Windows(2016)', 'Windows(2019)'],
         widthTableColId: '120',
         formLabelWidth: '120px',
         user: null,

@@ -91,8 +91,8 @@
             <el-button size="mini" title="删除" type="danger" icon="el-icon-delete"
                        @click="doDelete(scope.row)"></el-button>
             <el-button size="mini" type="info" @click="doSftp(scope.row)">SFTP</el-button>
-            <el-button size="mini" type="info" @click="doVnc(scope.row)">VNC</el-button>
-            <el-button size="mini" type="info" @click="doRdp(scope.row)">RDP</el-button>
+            <el-button size="mini" type="info" @click="doGuacamole(scope.row,'vnc')">VNC</el-button>
+            <el-button size="mini" type="info" @click="doGuacamole(scope.row,'rdp')">RDP</el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -164,11 +164,15 @@ export default {
     doSftp(row) {
 
     },
-    doVnc(row) {
-      //todo:: 实现 vnc
-    },
-    doRdp(row){
-      //todo:: 实现 rdp
+
+    doGuacamole(row,protocol){
+      this.$http.get("/api/asset-web-guacamole", {params: {id: row.id}}).then(webSshURL => {
+        if (webSshURL) {
+          window.open(webSshURL, '_blank');
+        }
+      })
+
+
     },
     doXterm: function (row) {
       //todo:::::

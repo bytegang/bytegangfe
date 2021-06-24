@@ -62,7 +62,6 @@
       <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
           <el-button-group>
-            <el-button size="mini" title="查看" type="primary" icon="el-icon-view" @click="doView(scope.row)"></el-button>
             <el-button size="mini" title="编辑" type="success" icon="el-icon-edit-outline" @click="doUpdate(scope.row)"></el-button>
             <el-button size="mini" title="删除" type="danger" icon="el-icon-delete" @click="doDelete(scope.row)"></el-button>
           </el-button-group>

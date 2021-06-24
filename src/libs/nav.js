@@ -16,26 +16,26 @@ export const menuAdmin = [
             {path: '/asset', txt: '资产列表', name: 'asset'},
             {path: '/manage-account', txt: '管理账号', name: 'manageAccount'},
             {path: '/script-exec', txt: '命令执行', name: 'script-exec'},
-            {path: '/ssh-session-log', txt: '日志审计', name: '日志审计'},
-            {path: '/asset-user', txt: '资产用户', name: '资产用户'},
-            // {path: '/manage-account2', txt: '录像审计', name: '录像审计'},//todo:: 录像审计
+
         ]
     },
     {
-        txt: 'Chat',
-        icon: 'el-icon-camera',
+        txt: '用户',
+        icon: 'el-icon-user',
         subs: [
             {path: '/user', txt: '用户管理', name: 'user'},
+            {path: '/asset-user', txt: '资产授权', name: '资产用户'},
+
         ]
     },
     {
-        txt: 'Misc',
-        icon: 'el-icon-camera',
+        txt: '审计',
+        icon: 'el-icon-video-camera',
         subs: [
-            {path: '/hacknews', txt: 'Hack New', name: 'hacknews'},
-            // {path: '/mail-center', txt: 'MailCenter', name: 'hacknews'},//todo::
-            // {path: '/dev-center', txt: '开发者中心', name: 'DevCenter'},//todo:::
-            // {path: '/util/image-editor', txt: '图片编辑', name: 'ImageEditor'},
+            {path: '/terminal-log', txt: '命令日志', name: '日志审计'},
+            {path: '/video-log', txt: '录像日志', name: '录像审计'},//todo:: 录像审计
+
         ]
     },
+
 ]

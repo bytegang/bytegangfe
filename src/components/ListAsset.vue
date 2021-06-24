@@ -2,10 +2,11 @@
   <div>
 
     <el-row align="middle" class="toolbar" justify="start" type="flex">
-      <el-col :span="4">
+      <el-col :span="8">
         <go-back-btn></go-back-btn>
         <el-button type="primary" @click="doCreate">创建</el-button>
-        <el-button type="success" @click="doScan">扫描</el-button>
+        <el-button type="success" @click="doScan">快速添加SSH资产</el-button>
+        <el-button type="warning" @click="doCheck" :loading="isLoading">机器检查</el-button>
 
       </el-col>
       <el-col :span="20" class="search-bar">
@@ -51,7 +52,7 @@
       <el-table-column label="OS" prop="os"></el-table-column>
       <el-table-column label="LAN IP" prop="lan_ip"></el-table-column>
       <el-table-column label="WAN IP" prop="wan_ip"></el-table-column>
-      <el-table-column label="Telnet Status" prop="telnet_status"></el-table-column>
+      <el-table-column label="Conn Status" prop="conn_status"></el-table-column>
       <el-table-column label="Agent Status" prop="agent_status"></el-table-column>
 
       <el-table-column label="更新时间">
@@ -60,16 +61,16 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="Action" width="180">
+      <el-table-column fixed="right" label="Action" width="240">
         <template slot-scope="scope">
           <el-button-group>
-
             <el-button size="mini" title="Web Terminal SSH" type="success" icon="el-icon-s-promotion" @click="doXterm(scope.row)"></el-button>
-            <el-button size="mini" title="查看" type="primary" icon="el-icon-view" @click="doView(scope.row)"></el-button>
+<!--            <el-button size="mini" title="查看" type="primary" icon="el-icon-view" @click="doView(scope.row)"></el-button>-->
             <el-button size="mini" title="编辑" type="warning" icon="el-icon-edit-outline" @click="doUpdate(scope.row)"></el-button>
             <el-button size="mini" title="删除" type="danger" icon="el-icon-delete" @click="doDelete(scope.row)"></el-button>
-            <el-button size="mini" title="安装Agent" type="warning" @click="doAgent(scope.row)" icon="el-icon-set-up"></el-button>
+<!--            <el-button size="mini" title="安装Agent" type="warning" @click="doAgent(scope.row)" icon="el-icon-set-up"></el-button>-->
             <el-button size="mini" title="SFTP" type="info" @click="doSftp(scope.row)" icon="el-icon-sort"></el-button>
+            <el-button size="mini" title="Telnet-sshd" type="warning" @click="doSsdTelnet(scope.row)" icon="el-icon-connection"></el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -102,6 +103,7 @@ export default {
   components: {DfAssetScan, DfAsset, GoBackBtn},
   data() {
     return {
+      isLoading: false,
       vAsset: false,
       vScan: false,
       objAsset: {},
@@ -115,6 +117,19 @@ export default {
   },
 
   methods: {
+    doSsdTelnet(row){
+      let addr = `${row.admin_addr}:${row.admin_port}`
+      this.$http.get("/api/asset-web-telnet", {params: {addr}}).then(webSshURL => {
+        if (webSshURL) {
+          window.open(webSshURL, '_blank');
+        }
+      })
+    },
+    async doCheck() {
+      this.isLoading = true
+      await this.$http.get("/api/asset-check")
+      this.isLoading = false
+    },
     doScan() {
       this.vScan = true
     },
@@ -126,17 +141,17 @@ export default {
       this.vAsset = true
       this.objAsset = row
     },
-    doAgent(row){
+    doAgent(row) {
       //todo:: 安装 agent 查看agent 状态
     },
-    doXterm (row) {
+    doXterm(row) {
       this.$http.get("/api/asset-web-ssh", {params: {id: row.id}}).then(webSshURL => {
         if (webSshURL) {
           window.open(webSshURL, '_blank');
         }
       })
     },
-    doSftp (row) {
+    doSftp(row) {
       //todo:::::
       this.$http.get("/api/asset-web-sftp", {params: {id: row.id}}).then(webSshURL => {
         if (webSshURL) {

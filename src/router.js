@@ -7,16 +7,6 @@ const vueRouter = new Router({
     $breadCrumbs: ['main'],
     mode: "history",
     routes: [
-        {
-            path: '/mfa/setup/:userId/:token',
-            name: 'setupMfa',
-            meta: {
-                title: "2FA初始化"
-            },
-            component: () => import("@/components/SetupMfa"),
-            props: true,
-        },
-
 
         {
             path: '/xterm/:token',
@@ -24,8 +14,18 @@ const vueRouter = new Router({
             meta: {
                 title: "Xterm"
             },
-            component: () => import("@/components/Xterm"),
+            component: () => import("./components/Xterm"),
             props: true,
+        },
+        {
+            path: "/play/:id",
+            name: "play",
+            meta: {
+                breads: [{name: 'main', title: '首页'}, {name: 'play', title: 'Xterm播放器'}],
+                title: "Xterm播放器"
+            },
+            props: true,
+            component: () => import("./components/ViewTermPlayer")
         },
         {
             path: '/util/image-editor',
@@ -33,7 +33,7 @@ const vueRouter = new Router({
             meta: {
                 title: "图片编辑器"
             },
-            component: () => import("@/components/UtilImageEditor"),
+            component: () => import("./components/UtilImageEditor"),
         },
         {
             path: "/",
@@ -42,7 +42,7 @@ const vueRouter = new Router({
                 title: "Home"
             },
 
-            component: () => import("@/components/Main"),
+            component: () => import("./components/Main"),
             //redirect: {name: 'sshList'},
             children: [
 
@@ -57,7 +57,7 @@ const vueRouter = new Router({
                         breads: [{name: 'main', title: '首页'}, {name: 'user', title: '用户列表'}],
                         title: "用户"
                     },
-                    component: () => import("@/components/ListUser")
+                    component: () => import("./components/ListUser")
                 },
 
                 {
@@ -67,8 +67,9 @@ const vueRouter = new Router({
                         breads: [{name: 'main', title: '首页'}, {name: 'asset', title: '资产列表'}],
                         title: "资产列表"
                     },
-                    component: () => import("@/components/ListAsset")
+                    component: () => import("./components/ListAsset")
                 },
+
 
                 {
                     path: "asset-user",
@@ -77,37 +78,28 @@ const vueRouter = new Router({
                         breads: [{name: 'main', title: '首页'}, {name: 'assetUser', title: '资产用户'}],
                         title: "资产用户"
                     },
-                    component: () => import("@/components/ListAssetUser")
+                    component: () => import("./components/ListAssetUser")
                 },
                 {
-                    path: "ssh-session-log",
-                    name: "sshSessionLog",
+                    path: "terminal-log",
+                    name: "terminalLog",
                     meta: {
-                        breads: [{name: 'main', title: '首页'}, {name: 'sshSessionLog', title: '会话日志'}],
+                        breads: [{name: 'main', title: '首页'}, {name: 'terminalLog', title: '会话日志'}],
                         title: "会话日志"
                     },
-                    component: () => import("@/components/ListSshSessionLog")
+                    component: () => import("./components/ListTerminalLog")
                 },
 
                 {
                     path: "script-exec",
                     name: "scriptExec",
                     meta: {
-                        breads: [{name: 'main', title: '首页'}, {name: 'scriptExec', title: 'scriptExec'}],
-                        title: "scriptExec"
+                        breads: [{name: 'main', title: '首页'}, {name: 'scriptExec', title: '远程Shell脚本执行'}],
+                        title: "远程Shell脚本执行"
                     },
-                    component: () => import("@/components/ListScriptExec")
+                    component: () => import("./components/ListScriptExec")
                 },
 
-                {
-                    path: "hacknews",
-                    name: "hacknews",
-                    meta: {
-                        breads: [{name: 'main', title: '首页'}, {name: 'hacknews', title: 'Hacknews'}],
-                        title: "Hacknews"
-                    },
-                    component: () => import("@/components/ListHacknews")
-                },
                 {
                     path: "manage-account",
                     name: "manageAccount",
@@ -115,7 +107,7 @@ const vueRouter = new Router({
                         breads: [{name: 'main', title: '首页'}, {name: 'manageAccount', title: '管理账号'}],
                         title: "管理账号"
                     },
-                    component: () => import("@/components/ListManageAccount")
+                    component: () => import("./components/ListManageAccount")
                 },
 
             ]
